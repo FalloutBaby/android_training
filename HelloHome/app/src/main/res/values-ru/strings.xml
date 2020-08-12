@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Хай Дом</string>
+    <string name="activity_hello_home">Хай Дом</string>
+    <string name="activity_hello_user">Хай Юзер</string>
+    <string name="hello_home">Хай Дом!</string>
+    <string name="hello_username">Хай, %1$s!</string>
+    <string name="request_username">Как Вас зовут?</string>
+    <string name="hello_button">Хай!</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Hello Home</string>
+    <string name="activity_hello_home">Hello Home</string>
+    <string name="activity_hello_user">Hello User</string>
+    <string name="hello_home">Hello Home!</string>
+    <string name="hello_username">Hello, %1$s!</string>
+    <string name="request_username">What\'s your name?</string>
+    <string name="hello_button">Hello!</string>
+</resources>
