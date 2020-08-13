@@ -7,33 +7,48 @@
 
     <TextView
         android:id="@+id/example__text1"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_bright"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="H W_Header"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/example__cat_img"
-        android:layout_width="100dp"
-        android:layout_height="300dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/silver_the_cat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/example__text2"
-        app:layout_constraintStart_toEndOf="@+id/example__text1"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/example__text2"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_light"
+        android:text="H W_Sub"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/example__text1" />
+
+    <TextView
+        android:id="@+id/example__text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_orange_light"
+        android:text="Text to push barrier line"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/example__text2" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/holo_blue_bright"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="example__text1,example__text2,example__text3" />
+
+    <ImageView
+        android:id="@+id/example__cat_img"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/silver_the_cat"
+        app:layout_constraintStart_toEndOf="@+id/barrier" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
