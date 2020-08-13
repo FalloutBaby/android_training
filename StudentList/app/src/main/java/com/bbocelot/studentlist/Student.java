@@ -1,5 +1,7 @@
 package com.bbocelot.studentlist;
 
+import com.anupcowkur.herebedragons.SideEffect;
+
 public class Student {
 
     public final String name;
@@ -12,7 +14,7 @@ public class Student {
         this.surname = surname;
         this.sex = sex;
         if (avatar == null) {
-            this.avatar = (sex == true) ? 1 : 2;
+            this.avatar = (sex == true) ? R.drawable.silver_the_cat : R.drawable.siesta_the_cat;
         } else {
             this.avatar = avatar;
         }

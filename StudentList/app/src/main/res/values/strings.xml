@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Список Студентов</string>
-    <string name="add_student__button">Новый Студент</string>
+    <string name="add_student__button">Сохранить</string>
+    <string name="del_student__button">Удалить</string>
     <string name="detailed_student__subtitle">Студент</string>
     <string name="detailed_student__name">Имя</string>
     <string name="detailed_student__surname">Фамилия</string>
     <string name="detailed_student__sex">Мужчина</string>
+    <string name="new_student__button">+ Новый Студент</string>
 </resources>

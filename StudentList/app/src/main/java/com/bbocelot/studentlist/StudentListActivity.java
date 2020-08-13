@@ -1,6 +1,8 @@
 package com.bbocelot.studentlist;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +26,18 @@ public class StudentListActivity extends AppCompatActivity {
         students = generateStudentsList();
         setContentView(R.layout.activity_student_list);
         setupRecyclerView();
+        setupNewStudentButton();
+        setupAddStudentButton();
+    }
+
+    private void setupNewStudentButton() {
+        Button newStudentButton = findViewById(R.id.new_student__button);
+        newStudentButton.setOnClickListener(v -> this.onNewClick());
+    }
+
+    private void setupAddStudentButton() {
+        Button addStudentButton = findViewById(R.id.add_student__button);
+        addStudentButton.setOnClickListener(v -> this.onAddClick());
     }
 
     private void setupRecyclerView() {
@@ -46,11 +60,36 @@ public class StudentListActivity extends AppCompatActivity {
 //        Toast.makeText(StudentListActivity.this, student.name+student.surname, Toast.LENGTH_SHORT).show();
     }
 
+    private void onNewClick() {
+        EditText editTextName = findViewById(R.id.detailed_student__tv_name);
+        EditText editTextSurname = findViewById(R.id.detailed_student__tv_surname);
+        CheckBox checkBox = findViewById(R.id.detailed_student__tv_sex);
+        ImageView avatar = findViewById(R.id.detailed_student__iv_avatar);
+        editTextName.setText("");
+        editTextSurname.setText("");
+        checkBox.setChecked(false);
+        avatar.setImageResource(R.drawable.anonym_cat);
+    }
+
+    private void onAddClick() {
+        students.add(generateNewStudent());
+        studentAdapter.notifyDataSetChanged();
+    }
+
+    private Student generateNewStudent() {
+        EditText editTextName = findViewById(R.id.detailed_student__tv_name);
+        EditText editTextSurname = findViewById(R.id.detailed_student__tv_surname);
+        CheckBox checkBox = findViewById(R.id.detailed_student__tv_sex);
+
+        return new Student(editTextName.getText().toString(),editTextSurname.getText().toString(),checkBox.isChecked(), null);
+
+    }
+
     private List<Student> generateStudentsList() {
         List<Student> students = new ArrayList<>();
-        students.add(new Student("Мисс","Марпл",false, R.drawable.siesta_the_cat));
-        students.add(new Student("Эркюль","Пуаро",true, R.drawable.silver_the_cat));
-        students.add(new Student("Жюль","Мегре",true, R.drawable.silver_the_cat));
+        students.add(new Student("Мисс","Марпл",false, null));
+        students.add(new Student("Эркюль","Пуаро",true, null));
+        students.add(new Student("Жюль","Мегре",true, null));
         return students;
     }
 }
