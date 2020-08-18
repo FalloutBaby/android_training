@@ -92,7 +92,7 @@ public class StudentListActivity extends AppCompatActivity {
                 Toast.makeText(StudentListActivity.this, "Студент удалён!", Toast.LENGTH_LONG).show();
                 idx = i;
                 break;
-               }
+            }
         }
         students.remove(idx);
         studentAdapter.notifyDataSetChanged();
