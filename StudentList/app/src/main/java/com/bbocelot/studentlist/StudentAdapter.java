@@ -28,6 +28,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student, viewGroup, false);
         view.setOnClickListener(v -> onStudentClickListener.onStudentClick((Student) v.getTag()));
+
         return new StudentViewHolder(view);
     }
 

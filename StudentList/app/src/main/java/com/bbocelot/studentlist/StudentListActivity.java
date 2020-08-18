@@ -1,7 +1,6 @@
 package com.bbocelot.studentlist;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -10,11 +9,16 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
+import java.util.function.Predicate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.String.valueOf;
 
 public class StudentListActivity extends AppCompatActivity {
     private List<Student> students;
@@ -26,29 +30,28 @@ public class StudentListActivity extends AppCompatActivity {
         students = generateStudentsList();
         setContentView(R.layout.activity_student_list);
         setupRecyclerView();
-        setupNewStudentButton();
-        setupAddStudentButton();
+        setupAllStudentButtons();
     }
 
-    private void setupNewStudentButton() {
+    private void setupAllStudentButtons() {
         Button newStudentButton = findViewById(R.id.new_student__button);
         newStudentButton.setOnClickListener(v -> this.onNewClick());
-    }
-
-    private void setupAddStudentButton() {
         Button addStudentButton = findViewById(R.id.add_student__button);
         addStudentButton.setOnClickListener(v -> this.onAddClick());
+        Button delStudentButton = findViewById(R.id.del_student__button);
+        delStudentButton.setOnClickListener(v -> this.onDelClick());
     }
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.activity_student_list__rv_students);
-        studentAdapter = new StudentAdapter(students,this::onStudentClick);
+        studentAdapter = new StudentAdapter(students, this::onStudentClick);
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager sLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(sLayoutManager);
     }
 
     private void onStudentClick(Student student) {
+        ConstraintLayout studentLayout = findViewById(R.id.student__layout);
         EditText editTextName = findViewById(R.id.detailed_student__tv_name);
         EditText editTextSurname = findViewById(R.id.detailed_student__tv_surname);
         CheckBox checkBox = findViewById(R.id.detailed_student__tv_sex);
@@ -57,7 +60,6 @@ public class StudentListActivity extends AppCompatActivity {
         editTextSurname.setText(student.surname);
         checkBox.setChecked(student.sex);
         avatar.setImageResource(student.avatar);
-//        Toast.makeText(StudentListActivity.this, student.name+student.surname, Toast.LENGTH_SHORT).show();
     }
 
     private void onNewClick() {
@@ -76,20 +78,43 @@ public class StudentListActivity extends AppCompatActivity {
         studentAdapter.notifyDataSetChanged();
     }
 
+    private void onDelClick() {
+        EditText editTextName = findViewById(R.id.detailed_student__tv_name);
+        EditText editTextSurname = findViewById(R.id.detailed_student__tv_surname);
+        CheckBox checkBox = findViewById(R.id.detailed_student__tv_sex);
+        String name = editTextName.getText().toString();
+        String surname = editTextSurname.getText().toString();
+        boolean sex = checkBox.isChecked();
+        Student student = new Student(name, surname, sex, null);
+        int idx = 100;
+        for (int i = 0; i < this.students.size(); i++) {
+            if (this.students.get(i).name.equals(name)) {
+                Toast.makeText(StudentListActivity.this, "Студент удалён!", Toast.LENGTH_LONG).show();
+                idx = i;
+                break;
+               }
+        }
+        students.remove(idx);
+        studentAdapter.notifyDataSetChanged();
+    }
+
     private Student generateNewStudent() {
         EditText editTextName = findViewById(R.id.detailed_student__tv_name);
         EditText editTextSurname = findViewById(R.id.detailed_student__tv_surname);
         CheckBox checkBox = findViewById(R.id.detailed_student__tv_sex);
 
-        return new Student(editTextName.getText().toString(),editTextSurname.getText().toString(),checkBox.isChecked(), null);
+        Student student = new Student(editTextName.getText().toString(), editTextSurname.getText().toString(), checkBox.isChecked(), null);
+        Toast.makeText(StudentListActivity.this, "Студент " + student.name + " " + student.surname + " добавлен", Toast.LENGTH_SHORT).show();
+        return student;
 
     }
 
     private List<Student> generateStudentsList() {
         List<Student> students = new ArrayList<>();
-        students.add(new Student("Мисс","Марпл",false, null));
-        students.add(new Student("Эркюль","Пуаро",true, null));
-        students.add(new Student("Жюль","Мегре",true, null));
+        students.add(new Student("Fake", "Person", false, null));
+        students.add(new Student("Мисс", "Марпл", false, null));
+        students.add(new Student("Эркюль", "Пуаро", true, null));
+        students.add(new Student("Жюль", "Мегре", true, null));
         return students;
     }
 }
